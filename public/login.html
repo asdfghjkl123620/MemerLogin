@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      html,
+      body,
+      .container {
+        height: 100%;
+      }
+      .container {
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container d-flex">
+      <form class="col-4 border p-4 ">
+        <h3 class="text-center">會員管理系統</h3>
+        <div class="form-group">
+          <label for="exampleInputEmail1">帳號</label>
+          <input type="text" class="form-control" name="sales_id" />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">密碼</label>
+          <input type="password" class="form-control" name="password" />
+        </div>
+        <button type="button" class="btn btn-primary">登入</button>
+      </form>
+      <div id="info"></div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.querySelector(".btn").addEventListener("click", () => {
+        fetch("http://192.168.23.78:3000/login", {
+          method: "POST",
+          credentials: "include",
+          body: new FormData(document.querySelector("form"))
+        })
+          .then(r => r.json())
+          .then(r => {
+            if (r.success) {
+              alert("登入成功");
+              document.location.href =
+                "http://192.168.23.78:3000/connected_book/1";
+            } else {
+              alert("登入失敗");
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

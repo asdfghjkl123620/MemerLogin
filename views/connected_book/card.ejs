@@ -1,0 +1,50 @@
+<%- include("../common/html-header.ejs")  %> 
+<%- include("../common/html-navbar.ejs")  %> 
+
+<div class="container">         
+                <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="page-item <%= 1 === page? 'disabled':'' %>">
+                          <!-- <totalPage -->
+                        <a class="page-link" href="/connected_book/<%= page-1 %>" tabindex="-1">Previous</a>
+                      </li>
+                      <% for(let i=1; i <= totalPages; i++ ) {%> 
+                      <li class="page-item <%= i === page? 'active':'' %>"><a class="page-link" href="/connected_book/<%= i %>"><%= i %></a></li>
+                      <% } %> 
+                      <li class="page-item <%= totalPages === page? 'disabled':'' %>">
+                        <a class="page-link" href="/connected_book/<%= page+1 %>">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+          
+      
+    <div class="row">
+        <% if( rows ) {%> 
+            <% for(let i=0; i < rows.length; i++){ %>
+        <div class="col-3 text-center">
+                <div class="card my-3">
+                    <img width="150" class="img-fluid card-img-top" src="/img/<%= rows[i].image !== '' ? rows[i].image : 'photo.png' %>" alt="" >
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><%= rows[i].name %></h5>
+                        <p class="card-text"><%= rows[i].sid %></p>
+                        <p class="card-text"><%= rows[i].sales_id %></p>
+                        <p class="card-text"><%= rows[i].mobile %></p>
+                        <p class="card-text"><%= rows[i].email %></p>
+                        <p class="card-text"><%= rows[i].birthday %></p>
+                        <p class="card-text"><%= rows[i].created_at %></p>
+                        <a  class="btn btn-primary" href="<%="/connected_book/edit/" + rows[i].sid %>"><i class="fas fa-edit"></i></a>
+                        <a  class="btn btn-primary" id="del" href="<%= "/connected_book/del/" + rows[i].sid  %>"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                    </div>
+                 
+            
+        </div>
+        <% } %>
+        <% } else { %> 
+           
+                <h2>尚無資料</h2>
+    
+          <% } %> 
+    </div>
+    </div>
+<%- include("../common/html-footer.ejs") %>

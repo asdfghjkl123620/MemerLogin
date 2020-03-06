@@ -1,0 +1,60 @@
+<%- include("../common/html-header.ejs")  %> 
+<%- include("../common/html-navbar.ejs")  %> 
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form name="form1" method="POST" enctype="multipart/form-data" action="">
+                <!-- 前端必須先檢查,用regular expression查看格式是否正確 -->
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">sale_id</label>
+                    <!-- 從資料庫後端傳過來的變數row -->
+      
+                    <input type="text" name="sales_id" class="form-control" id="sales_id" placeholder="sales_id">
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputPassword1">大頭貼</label>
+                      <figure class="avatar">
+                        <img width="150" src="/img/photo.png" id="imgBox">
+                      </figure>
+                      <input type="file" class="form-control"  id="img" name="img" hidden>
+                    </div>
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">姓名</label>
+                    <input type="text" name="name" class="form-control"  id="name" placeholder="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">電話</label>
+                    <input type="text" name="mobile" class="form-control" id="mobile"  placeholder="mobile">
+                  </div>
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">生日</label>
+                    <input type="text" name="birthday" id="birthday" name="birthday"  class="form-control" id="birthday">
+                  </div>
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">電郵</label>
+                    <input  name="email" class="form-control" id="email" placeholder="email">   
+                </div>
+      <button class="btn btn-primary" type="submit"  class="btn btn-primary btn-lg btn-block">新增</button>           
+               </form>
+        </div>
+    </div>
+</div>
+<%- include("../common/html-footer.ejs") %>
+<script>
+    $("#imgBox").click(function(){
+      $("#img").click();
+    })
+    $("#img").change(function(){
+        //建立一個FileReader物件
+        let reader = new FileReader() 
+        //監聽事件，等待讀取完畢之後執行
+        //event.target.result = 取得圖片轉換成的base64文字碼
+        reader.addEventListener("load",event=>{     
+            $("#imgBox").attr("src",event.target.result)
+        })
+        //讀取使用者上傳的檔案
+        reader.readAsDataURL($("#img")[0].files[0])
+    })
+  </script>

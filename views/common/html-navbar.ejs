@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+       
+            <li class="nav-item">
+                <a class="nav-link" href="/shopping">Store</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/story">Story</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    <a class="dropdown-item" href="/connected_book/1">ContactUs</a>
+                    <a class="dropdown-item" href="/connected_book/insert">Add Friend</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=""></a>
+            </li>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <% if(! locals.sales_id) { %>
+                <!-- 如果你沒有登入的話 不存在name資料 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/login.html">登入</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link"><%= locals.name %></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">登出</a>
+                </li>
+                
+            <% } %> 
+        </ul>
+
+    </div>
+    
+    </div>
+</nav>

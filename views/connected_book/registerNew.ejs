@@ -1,0 +1,80 @@
+<%- include("../common/html-header.ejs")  %> 
+<%- include("../common/html-navbar.ejs")  %> 
+
+
+
+<div class="container">
+    <div class="row">
+      <div class="col">
+          <div id="info" class="alert alert-success" role="alert" style="display: none">
+  
+          </div>
+      </div>
+  </div>
+     <div class="row">
+          
+         <div class="col-md-5 py-3">
+          <form name="form1" method="POST" enctype="multipart/form-data" onsubmit="return formData()">
+            <!-- 前端必須先檢查,用regular expression查看格式是否正確 -->
+              <div class="form-group">
+                <label for="formGroupExampleInput">sale_id</label>
+                <input type="text" name="sales_id" class="form-control" id="sale_id" placeholder="sale_id">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">大頭照</label>
+                <input type="file" name="img" id="img">
+            </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">姓名</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="name">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">密碼</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="password">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">電話</label>
+                <input type="text" name="mobile" class="form-control" id="mobile" placeholder="mobile">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">生日</label>
+                <input type="date" name="birthday" id="birthday" name="birthday" class="form-control" id="birthday">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">電郵</label>
+                      <input  name="email" class="form-control" id="email" placeholder="email">   
+              </div>
+  <button class="btn btn-primary" type="submit"  class="btn btn-primary btn-lg btn-block">提交</button>            </form>
+         </div>
+     </div>
+   
+  </div>
+  <%- include("../common/html-footer.ejs") %>
+  <script>
+    const info = $('#info');
+    function formData(){
+      //送出前檢查必田欄位
+      fetch('/registerNew',{
+        method:"POST",
+        body:new FormData(document.form1),
+  
+      })
+      .then(r=>r.json())
+      .then(obj=>{
+        //後端傳過來的success進行驗證
+        console.log(obj);
+        if(obj.success){
+          info.text('新增成功');
+          info.removeClass('alert-warning').addClass('alert-success');
+        }else{
+          //顯示存儲在obj內的錯誤訊息
+          info.text(obj.error);
+          info.removeClass('alert-success').addClass('alert-warning');
+        }
+        //錯誤 傳遞成功將訊息華出來
+        info.slideDown();
+  
+      }) 
+      return false;//沒有要將表單提交出去
+    }
+  </script>

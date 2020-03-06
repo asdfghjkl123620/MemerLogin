@@ -1,0 +1,69 @@
+<%- include("../common/html-header.ejs")  %> 
+<%- include("../common/html-navbar.ejs")  %> 
+<div class="container">
+    <div class="row">
+      <div class="col">
+          <div id="info" class="alert alert-success" role="alert" style="display: none">
+  
+          </div>
+      </div>
+  </div>
+    <div class="row">
+        <div class="col-md-5 py-3">
+            <% if (row.length !== 0) { %>
+            <form name="form1" method="POST" enctype="multipart/form-data" action="<%= url %> ">
+              <!-- 前端必須先檢查,用regular expression查看格式是否正確 -->
+                <div class="form-group">
+                  <label for="formGroupExampleInput">sale_id</label>
+                  <!-- 從資料庫後端傳過來的變數row -->
+    
+                  <input type="text" name="sales_id" class="form-control" id="sales_id" value="<%= row.sales_id %>" placeholder="sales_id">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">大頭貼</label>
+                    <figure class="avatar">
+                      <img src="/img/<%= row.image!=='' ? row.image : 'photo.png' %>" id="imgBox">
+                    </figure>
+                    <input type="file" class="form-control" value="<%= row.img %>" id="img" name="img" hidden>
+                  </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">姓名</label>
+                  <input type="text" name="name" class="form-control" value="<%= row.name%>" id="name" placeholder="name">
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">電話</label>
+                  <input type="text" name="mobile" class="form-control" id="mobile" value="<%= row.mobile%>" placeholder="mobile">
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">生日</label>
+                  <input type="text" name="birthday" id="birthday" name="birthday" value="<%= row.birthday%>" class="form-control" id="birthday">
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">電郵</label>
+                        <textarea name="email" class="form-control" id="email" placeholder="email" cols="30" rows="5"><%= row.email%></textarea>           
+                </div>
+    <button class="btn btn-primary" type="submit"  class="btn btn-primary btn-lg btn-block">修改</button>           
+             </form>
+            <% } else { %>
+                <h2>查無資料</h2>
+            <% } %> 
+           </div>
+    </div>
+  </div>
+<%- include("../common/html-footer.ejs") %>
+<script>
+    $('#imgBox').click(function(){
+        $('#img').click();
+    })
+
+    $('#img').change(function(){
+        let reader = new FileReader();
+        //監聽事件,等待讀取完畢之後執行
+        //event.target.result=取得圖片傳換成的base64
+        reader.addEventListener('load',event=>{
+            $('#imgBox').attr('src',event.target.result)
+        })
+        //讀取使用者上傳檔案
+        reader.readAsDataURL($('#img')[0].files[0])
+    })
+</script>
